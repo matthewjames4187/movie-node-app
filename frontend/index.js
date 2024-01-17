@@ -53,4 +53,4 @@ app.get('/', function(req, res) {
         });
 });
 
-app.listen(frontendPort, () => console.log(`Frontend app listening on port ${frontendPort}!`))
+app.listen(frontendPort, () => console.log(`Frontend app listening on port ${frontendPort}!`));
