@@ -1,13 +1,13 @@
 const express = require("express");
 const { Pool, Client } = require("pg");
 const app = express();
-const databaseType = "defaultType";
-const databaseUser = "defaultUser";
-const databasePassword = "defaultPassword";
-const databaseHost = "localhost";
-const databasePort = 5432;
-const databaseName = "defaultName"
-const backendPort = 3001;
+const databaseType = process.env.databaseType || "defaultType";
+const databaseUser = process.env.databaseUser || "defaultUser";
+const databasePassword = process.env.databasePassword || "defaultPassword";
+const databaseHost = process.env.databaseHost || "localhost";
+const databasePort = process.env.databasePort || 5432;
+const databaseName = process.env.databaseName || "defaultName";
+const backendPort = process.env.backendPort || 3001;
 
 const pool = new Pool({
   connectionString: `${databaseType}://${databaseUser}:${databasePassword}@${databaseHost}:${databasePort}/${databaseName}`

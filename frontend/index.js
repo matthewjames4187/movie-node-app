@@ -2,9 +2,9 @@ const express = require('express');
 const request = require('request');
 
 const app = express();
-const frontendPort = 3000;
-const backendHost = "localhost";
-const backendPort = 3001
+const frontendPort = process.env.frontendPort || 3000;
+const backendHost = process.env.backendHost || "localhost";
+const backendPort = process.env.backendPort || 3001;
 const restApiUrl = `http://${backendHost}:${backendPort}/data`;
 
 app.get('/', function(req, res) {
