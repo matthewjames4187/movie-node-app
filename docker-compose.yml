@@ -1,0 +1,64 @@
+version: "3"
+services:
+  frontend:
+    container_name: "movie-app-frontend"
+    build: frontend/
+    ports:
+      - 3000:3000
+    environment:
+      - frontendPort=3000
+      - backendHost=backend
+      - backendPort=3001
+    networks:
+      - movie-app-network
+    depends_on:
+      - database
+      - backend
+
+  backend:
+    container_name: "movie-app-backend"
+    build: backend/
+    ports:
+      - 3001:3001
+    environment:
+      - databaseType=postgres
+      - databaseUser=movieAppUser
+      - databasePassword=password123
+      - databaseHost=database
+      - databasePort=5432
+      - databaseName=movie_database
+      - backendPort=3001
+    networks:
+      - movie-app-network
+    depends_on:
+      database:
+        condition: service_healthy
+    
+  database:
+    image: "postgres"
+    container_name: "movie-app-db"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=movieAppUser
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=movie_database
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "movie_database", "-U", "movieAppUser"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - movie-app-network
+    volumes:
+      - movie-app-postgres-data:/var/lib/postgresql/data
+      - movie-app-postgres-config:/etc/postgresql
+      - ./init_sql_scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  movie-app-postgres-data:
+  movie-app-postgres-config:
+
+networks:
+  movie-app-network:
+    name: movie-app-network
+    driver: bridge
