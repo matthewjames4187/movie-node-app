@@ -35,7 +35,7 @@ services:
         condition: service_healthy
     
   database:
-    image: "postgres"
+    image: "postgres:11.2"
     container_name: "movie-app-db"
     ports:
       - 5432:5432

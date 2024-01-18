@@ -1,15 +1,16 @@
 {
-  "name": "docker-frontend-backend-db",
+  "name": "docker-frontend-backend-db-backend",
   "version": "1.0.0",
-  "description": "A tiny web app",
+  "description": "Backend part of a tiny web app",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-    "request": "^2.88.0"
+    "mysql2": "^2.3.0"
   }
 }
