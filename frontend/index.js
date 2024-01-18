@@ -1,11 +1,9 @@
-const express = require('express');
-const request = require('request');
+const express = require('express')
+const request = require('request')
+const app = express()
 
-const app = express();
-const frontendPort = process.env.frontendPort || 3000;
-const backendHost = process.env.backendHost || "localhost";
-const backendPort = process.env.backendPort || 3001;
-const restApiUrl = `http://${backendHost}:${backendPort}/data`;
+const frontendPort = process.env.frontendPort
+const restApiUrl = process.env.restApiUrl
 
 app.get('/', function(req, res) {
     request(
@@ -53,4 +51,4 @@ app.get('/', function(req, res) {
         });
 });
 
-app.listen(frontendPort, () => console.log(`Frontend app listening on port ${frontendPort}!`));
+app.listen(frontendPort, () => console.log(`Frontend app listening on port ${frontendPort}!`))
